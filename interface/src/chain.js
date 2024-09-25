@@ -49,4 +49,4 @@ export const mantraChainConfig = {
   ]
 };
   
-export const CONTRACT_ADDRESS = "mantra1z6n3vvnvxyc023lk9h8nxqyx4vfpnvfrndtse7tjn4jzytmn4axqplmhqh";
+export const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS";
