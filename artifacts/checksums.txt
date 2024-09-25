@@ -1,0 +1,1 @@
+2eb9ad92d4e9f9365018f4a29e689ec4a8415f426ac8a8b78edc9c638d66ccf6  art_tokenization_mantra_chain.wasm
