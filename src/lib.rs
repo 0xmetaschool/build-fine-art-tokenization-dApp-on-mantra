@@ -14,5 +14,5 @@ pub type Extension = Option<Empty>;
 
 #[cfg(not(feature = "library"))]
 pub mod entry {
-   // add code as instructructed in the lesson
+   // add code as instructed in the lesson
 }
