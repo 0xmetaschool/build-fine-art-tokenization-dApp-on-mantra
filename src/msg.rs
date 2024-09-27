@@ -36,10 +36,10 @@ pub enum ExecuteMsg<T> {
     RevokeAll { operator: String },
     Burn{ token_id: String},
 
-    // add code as instructructed in the lesson
+    // add code as instructed in the lesson
 }
 
-// add code as instructructed in the lesson
+// add code as instructed in the lesson
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
@@ -91,7 +91,7 @@ pub enum QueryMsg {
         limit: Option<u32>,
     },
 
-    // add code as instructructed in the lesson
+    // add code as instructed in the lesson
 }
 
-// add code as instructructed in the lesson
+// add code as instructed in the lesson
