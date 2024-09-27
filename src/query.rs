@@ -23,20 +23,17 @@ where
     C: CustomMsg,
 {
     fn contract_info(&self, deps: Deps) -> StdResult<ContractInfoResponse> {
-        self.contract_info.load(deps.storage)
+        // TODO: Load contract info from storage and return it
     }
 
     fn num_tokens(&self, deps: Deps) -> StdResult<NumTokensResponse> {
-        let count = self.token_count(deps.storage)?;
-        Ok(NumTokensResponse { count })
+        // TODO: Get the token count from storage
+        // TODO: Return the count wrapped in a NumTokensResponse
     }
 
     fn nft_info(&self, deps: Deps, token_id: String) -> StdResult<NftInfoResponse<T>> {
-        let info = self.tokens.load(deps.storage, &token_id)?;
-        Ok(NftInfoResponse {
-            token_uri: info.token_uri,
-            extension: info.extension,
-        })
+        // TODO: Load the token info from storage
+        // TODO: Return the token URI and extension data in an NftInfoResponse
     }
 
     fn owner_of(
@@ -53,7 +50,6 @@ where
         })
     }
 
-    /// operators returns all operators owner given access to
     fn operators(
         &self,
         deps: Deps,
@@ -91,7 +87,6 @@ where
     ) -> StdResult<ApprovalResponse> {
         let token = self.tokens.load(deps.storage, &token_id)?;
 
-        // token owner has absolute approval
         if token.owner == spender {
             let approval = cw721::Approval {
                 spender: token.owner.to_string(),
@@ -114,13 +109,11 @@ where
         if filtered.is_empty() {
             return Err(StdError::not_found("Approval not found"));
         }
-        // we expect only one item
         let approval = filtered[0].clone();
 
         Ok(ApprovalResponse { approval })
     }
 
-    /// approvals returns all approvals owner given access to
     fn approvals(
         &self,
         deps: Deps,
@@ -219,15 +212,8 @@ where
     }
 
     pub fn nft_details(&self, deps: Deps) -> StdResult<NftDetailsResponse> {
-        let mint_price = self.mint_price.load(deps.storage)?;
-        let max_mints = self.max_mints.load(deps.storage)?;
-        let token_uri = self.token_uri.load(deps.storage)?;
-
-        Ok(NftDetailsResponse {
-            token_uri,
-            mint_price,
-            max_mints,
-        })
+        // TODO: Load mint price, max mints, and token URI from storage
+        // TODO: Return these details in an NftDetailsResponse
     }
 
     pub fn query(&self, deps: Deps, env: Env, msg: QueryMsg) -> StdResult<Binary> {
@@ -235,21 +221,16 @@ where
             QueryMsg::Minter {} => to_json_binary(&self.minter(deps)?),
             QueryMsg::ContractInfo {} => to_json_binary(&self.contract_info(deps)?),
             QueryMsg::NftInfo { token_id } => to_json_binary(&self.nft_info(deps, token_id)?),
+
+            // TODO: Add cases for different query types
+            // Hint: Think about the four queries we mentioned
+
             QueryMsg::OwnerOf {
                 token_id,
                 include_expired,
             } => {
                 to_json_binary(&self.owner_of(deps, env, token_id, include_expired.unwrap_or(false))?)
             }
-            QueryMsg::AllNftInfo {
-                token_id,
-                include_expired,
-            } => to_json_binary(&self.all_nft_info(
-                deps,
-                env,
-                token_id,
-                include_expired.unwrap_or(false),
-            )?),
             QueryMsg::AllOperators {
                 owner,
                 include_expired,
@@ -263,7 +244,6 @@ where
                 start_after,
                 limit,
             )?),
-            QueryMsg::NumTokens {} => to_json_binary(&self.num_tokens(deps)?),
             QueryMsg::Tokens {
                 owner,
                 start_after,
@@ -288,9 +268,6 @@ where
                 include_expired,
             } => {
                 to_json_binary(&self.approvals(deps, env, token_id, include_expired.unwrap_or(false))?)
-            }
-            QueryMsg::NftDetails {} => {
-                to_json_binary(&self.nft_details(deps)?)
             }
         }
     }
