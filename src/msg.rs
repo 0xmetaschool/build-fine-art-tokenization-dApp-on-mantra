@@ -10,7 +10,7 @@ pub struct InstantiateMsg {
     pub symbol: String,
     pub minter: String,
 
-    // add code as instructructed in the lesson
+    // add code as instructed in the lesson
 
 }
 
